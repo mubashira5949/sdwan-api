@@ -1,6 +1,6 @@
 fastapi
-uvicorn
+uvicorn[standard]
 pydantic-settings
-sqlalchemy
-psycopg2-binary
+sqlalchemy[asyncio]
+asyncpg
 httpx
