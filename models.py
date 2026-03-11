@@ -12,6 +12,7 @@ class Device(Base):
     active_config_group = Column(String, nullable=True)
     active_policy = Column(String, nullable=True)
     active_topology = Column(String, nullable=True)
+    active_security_policy = Column(String, nullable=True)
 
 class ConfigGroup(Base):
     __tablename__ = "config_groups"
@@ -32,3 +33,10 @@ class Topology(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     type = Column(String, nullable=False) # E.g., hub-spoke, mesh, hybrid
+
+class SecurityPolicy(Base):
+    __tablename__ = "security_policies"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    type = Column(String, nullable=False) # E.g., firewall, ips, segmentation, vpn
