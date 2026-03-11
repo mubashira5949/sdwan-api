@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class DeviceBase(BaseModel):
     hostname: str
@@ -19,8 +19,7 @@ class DeviceResponse(DeviceBase):
     active_topology: str | None = None
     active_security_policy: str | None = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ConfigGroupBase(BaseModel):
     name: str
@@ -31,8 +30,7 @@ class ConfigGroupCreate(ConfigGroupBase):
 class ConfigGroupResponse(ConfigGroupBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ConfigGroupDeploy(BaseModel):
     group_name: str
@@ -48,8 +46,7 @@ class PolicyCreate(PolicyBase):
 class PolicyResponse(PolicyBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PolicyDeploy(BaseModel):
     policy_name: str
@@ -65,8 +62,7 @@ class TopologyCreate(TopologyBase):
 class TopologyResponse(TopologyBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class TopologyDeploy(BaseModel):
     type: str
@@ -83,8 +79,7 @@ class SecurityPolicyCreate(SecurityPolicyBase):
 class SecurityPolicyResponse(SecurityPolicyBase):
     id: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class SecurityPolicyDeploy(BaseModel):
     policy: str
