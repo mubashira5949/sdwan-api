@@ -10,3 +10,9 @@ class Device(Base):
     site_id = Column(String, index=True)
     status = Column(String)
     active_config_group = Column(String, nullable=True)
+
+class ConfigGroup(Base):
+    __tablename__ = "config_groups"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)

@@ -49,3 +49,16 @@ class SDWANClient:
             "system_ip": system_ip,
             "running_config": f"hostname Router-{system_ip}\n!\ninterface GigabitEthernet0/0/0\n ip address dhcp\n!"
         }
+
+    async def deploy_group_config(self, group_name: str, devices: list[str]):
+        logger.info(f"Simulating SDWAN template API call to deploy group {group_name} to devices: {devices}")
+        # Example pseudo-code for multiple devices:
+        # device_list = [{"deviceIP": ip} for ip in devices]
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.post(
+        #         f"{self.base_url}/dataservice/template/device/config/attachFeatureDeviceTemplate",
+        #         json={"deviceTemplateList": [{"templateName": group_name, "device": device_list}]}
+        #     )
+        #     response.raise_for_status()
+        
+        return {"status": "success", "message": f"Config group {group_name} deployment initiated for {len(devices)} devices."}
