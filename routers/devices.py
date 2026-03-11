@@ -65,3 +65,53 @@ async def get_device(device_id: int, db: AsyncSession = Depends(get_db)):
     if not device:
         raise HTTPException(status_code=404, detail="Device not found")
     return device
+
+@router.post("/{device_id}/deploy-config")
+async def deploy_device_config(
+        device_id: int, 
+        config_data: schemas.DeviceConfigDeploy, 
+        db: AsyncSession = Depends(get_db)
+    ):
+    """
+    Deploy a configuration template to a specific device.
+    """
+    result = await db.execute(select(models.Device).filter(models.Device.id == device_id))
+    device = result.scalars().first()
+    if not device:
+        raise HTTPException(status_code=404, detail="Device not found")
+
+    try:
+        # Push to SD-WAN Controller
+        await sdwan_client.deploy_config(device.system_ip, config_data.config_group)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to deploy config to SD-WAN: {str(e)}")
+
+    # Update Local DB Reference
+    device.active_config_group = config_data.config_group
+    device.status = "configured"
+    await db.commit()
+    await db.refresh(device)
+
+    return {
+        "message": "Configuration deployment triggered successfully",
+        "device": device.hostname,
+        "config_group": config_data.config_group
+    }
+
+@router.get("/{device_id}/config")
+async def get_device_config(device_id: int, db: AsyncSession = Depends(get_db)):
+    """
+    Retrieve the current running configuration of a device from SD-WAN.
+    """
+    result = await db.execute(select(models.Device).filter(models.Device.id == device_id))
+    device = result.scalars().first()
+    if not device:
+        raise HTTPException(status_code=404, detail="Device not found")
+
+    try:
+        # Fetch from SD-WAN Controller
+        config_info = await sdwan_client.get_config(device.system_ip)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch config from SD-WAN: {str(e)}")
+
+    return config_info

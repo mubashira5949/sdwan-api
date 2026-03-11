@@ -30,3 +30,22 @@ class SDWANClient:
         
         # Simulating successful internal SDWAN response
         return {"status": "success", "message": f"Successfully added {device.hostname} to SDWAN"}
+
+    async def deploy_config(self, system_ip: str, config_group: str):
+        logger.info(f"Simulating SDWAN template API call to deploy {config_group} to device {system_ip}")
+        # Example pseudo-code (assuming API uses the system_ip or device ID to assign the template):
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.post(
+        #         f"{self.base_url}/dataservice/template/device/config/attachFeatureDeviceTemplate",
+        #         json={"deviceIP": system_ip, "templateName": config_group}
+        #     )
+        #     response.raise_for_status()
+        
+        return {"status": "success", "message": f"Config {config_group} deployed to {system_ip}"}
+
+    async def get_config(self, system_ip: str):
+        logger.info(f"Simulating SDWAN fetch for current config of {system_ip}")
+        return {
+            "system_ip": system_ip,
+            "running_config": f"hostname Router-{system_ip}\n!\ninterface GigabitEthernet0/0/0\n ip address dhcp\n!"
+        }
