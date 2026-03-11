@@ -18,3 +18,19 @@ class DeviceResponse(DeviceBase):
 
     class Config:
         from_attributes = True
+
+class ConfigGroupBase(BaseModel):
+    name: str
+
+class ConfigGroupCreate(ConfigGroupBase):
+    pass
+
+class ConfigGroupResponse(ConfigGroupBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+class ConfigGroupDeploy(BaseModel):
+    group_name: str
+    devices: list[str]

@@ -7,7 +7,7 @@ from config import settings
 from logger import logger
 from database import engine, Base, get_db
 from client import SDWANClient
-from routers import devices
+from routers import devices, config_groups
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -33,6 +33,7 @@ app = FastAPI(
 )
 
 app.include_router(devices.router)
+app.include_router(config_groups.router)
 
 @app.get("/")
 async def root():
