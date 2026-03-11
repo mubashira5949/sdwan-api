@@ -74,3 +74,15 @@ class SDWANClient:
         #     response.raise_for_status()
         
         return {"status": "success", "message": f"Policy {policy_name} deployment initiated targeting {len(devices)} devices."}
+
+    async def deploy_topology(self, topology_type: str, hub: str | None, spokes: list[str]):
+        logger.info(f"Simulating SDWAN Topology API linking {topology_type} - Hub: {hub} to Spokes: {spokes}")
+        # Example pseudo-code (Pushing vSmart central control policies that bind sites/system IPs):
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.post(
+        #         f"{self.base_url}/dataservice/template/policy/custom/topology",
+        #         json={"topologyType": topology_type, "hub_router": hub, "spoke_routers": spokes} 
+        #     )
+        #     response.raise_for_status()
+        
+        return {"status": "success", "message": f"{topology_type.capitalize()} deployed successfully connecting {len(spokes)} spokes."}
