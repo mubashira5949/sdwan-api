@@ -17,6 +17,7 @@ class DeviceResponse(DeviceBase):
     active_config_group: str | None = None
     active_policy: str | None = None
     active_topology: str | None = None
+    active_security_policy: str | None = None
 
     class Config:
         from_attributes = True
@@ -71,3 +72,20 @@ class TopologyDeploy(BaseModel):
     type: str
     hub: str | None = None
     spokes: list[str] = []
+
+class SecurityPolicyBase(BaseModel):
+    name: str
+    type: str
+
+class SecurityPolicyCreate(SecurityPolicyBase):
+    pass
+
+class SecurityPolicyResponse(SecurityPolicyBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+class SecurityPolicyDeploy(BaseModel):
+    policy: str
+    devices: list[str]

@@ -86,3 +86,15 @@ class SDWANClient:
         #     response.raise_for_status()
         
         return {"status": "success", "message": f"{topology_type.capitalize()} deployed successfully connecting {len(spokes)} spokes."}
+
+    async def deploy_security_policy(self, policy_name: str, devices: list[str]):
+        logger.info(f"Simulating SDWAN Security Policy mapping {policy_name} to {devices}")
+        # Example pseudo-code (Pushing vSmart central security templates/localized security constraints):
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.post(
+        #         f"{self.base_url}/dataservice/template/policy/security/activate",
+        #         json={"policyName": policy_name, "targetDevices": devices} 
+        #     )
+        #     response.raise_for_status()
+        
+        return {"status": "success", "message": f"Security Policy {policy_name} mapped effectively to targeted edge devices."}
