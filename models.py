@@ -9,3 +9,4 @@ class Device(Base):
     system_ip = Column(String, unique=True, index=True)
     site_id = Column(String, index=True)
     status = Column(String)
+    active_config_group = Column(String, nullable=True)
