@@ -3,4 +3,7 @@ uvicorn[standard]
 pydantic-settings
 sqlalchemy[asyncio]
 asyncpg
+pytest
+pytest-asyncio
+aiosqlite
 httpx
