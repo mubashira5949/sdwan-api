@@ -15,6 +15,7 @@ class DeviceConfigDeploy(BaseModel):
 class DeviceResponse(DeviceBase):
     id: int
     active_config_group: str | None = None
+    active_policy: str | None = None
 
     class Config:
         from_attributes = True
@@ -33,4 +34,21 @@ class ConfigGroupResponse(ConfigGroupBase):
 
 class ConfigGroupDeploy(BaseModel):
     group_name: str
+    devices: list[str]
+
+class PolicyBase(BaseModel):
+    name: str
+    policy_type: str | None = None
+
+class PolicyCreate(PolicyBase):
+    pass
+
+class PolicyResponse(PolicyBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+
+class PolicyDeploy(BaseModel):
+    policy_name: str
     devices: list[str]

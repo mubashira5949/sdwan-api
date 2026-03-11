@@ -62,3 +62,15 @@ class SDWANClient:
         #     response.raise_for_status()
         
         return {"status": "success", "message": f"Config group {group_name} deployment initiated for {len(devices)} devices."}
+
+    async def deploy_policy(self, policy_name: str, devices: list[str]):
+        logger.info(f"Simulating SDWAN Policy API call to deploy policy {policy_name} to devices: {devices}")
+        # Example pseudo-code for policy assignment (Centralized Policy execution):
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.post(
+        #         f"{self.base_url}/dataservice/template/policy/vsmart/activate/{policy_id}",
+        #         json={"isEdited": True} 
+        #     )
+        #     response.raise_for_status()
+        
+        return {"status": "success", "message": f"Policy {policy_name} deployment initiated targeting {len(devices)} devices."}
